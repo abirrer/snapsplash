@@ -1,10 +1,48 @@
 <!doctype html>
 <html>
 <head>
-    <title></title>
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>SnapSplat Image Board</title>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css">
 </head>
 <body>
+    <header>
+        <img src="/img/header.png">
+    </header>
+
+    <div id="app">
+        <h3>Upload Your Photo</h3>
+        <div id="app__upload-form">
+
+            <form method="">
+                <input type="text" name="title" placeholder="Image Title"></input>
+                <input type="text" name="description" placeholder="Description"></input>
+                <input type="text" name="username" placeholder="Username"></input>
+                <input type="submit" value="Upload">
+            </form>
+        </div>
+
+        <h3>Most Recent Uploads</h3>
+        <div id="app__image-board">
+            <div class="app__image-board--image-box" v-for="image in images">
+                <img v-on:mouseover="emphasize" v-on:mouseout="deemphasize" v-bind:src="image.image">
+                <h4>{{image.title}}</h4>
+                <p>{{image.description}}</p>
+                <p>Uploaded by {{image.username}}</p>
+            </div>
+        </div>
+    </div>
+
     <script src="/js/vue.js"></script>
     <script src="/js/axios.min.js"></script>
+    <script src="/js/script.js"></script>
 </body>
+
+
 </html>

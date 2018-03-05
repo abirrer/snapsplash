@@ -1,0 +1,46 @@
+//Class Notes from 5 March 2018 - Intro to Image Board Project
+
+4 main parts to the project, 3 are high priority, 4th is more of a bonus but we should do it.
+1 and 2 are straight forward, but part 2 is mostly image upload.
+Part 3 is hard/big.
+
+In index.js our routes will only be sending back JSON because it is a single page application
+
+//Part 1:
+
+
+v for thru each of the images and print out an element for each image.
+
+when you do query to get the images out of the database:
+function getImages() {
+    db.query(`SELECT * FROM IMAGES ORDER BY created_at DESC`).then({rows} => {
+        rows.forEach(function(image) {
+            image.image = config.s3 + image.image
+        })
+    }
+}
+//later we will need to change the query to be:
+function getImages(lastShownImageID) {
+    db.query(`SELECT * FROM IMAGES LIMIT 10 ORDER BY created_at DESC WHERE id < $1`).then({rows} => {
+        rows.forEach(function(image) {
+            image.image = config.s3 + image.image
+        })
+    }
+}
+
+run sql query
+then put it in a route to res.json
+then make view instance when it mounts
+
+set a property on itself and as soon as it is set, then view should
+automatically update to show each of the images
+
+image should be scaled down
+with title
+on a grid (flexbox or css grid);
+
+in html is a big div where we set properties in our vue instance that causes it to display
+
+//Part 2 Notes:
+add the form for upload.
+If you move on, then stop at the upload button next. We will talk about that tomorrow.
