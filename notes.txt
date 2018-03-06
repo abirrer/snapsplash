@@ -44,3 +44,7 @@ in html is a big div where we set properties in our vue instance that causes it 
 //Part 2 Notes:
 add the form for upload.
 If you move on, then stop at the upload button next. We will talk about that tomorrow.
+
+//Part 2:
+
+After you do an upload, you might want to delete the file from uploads

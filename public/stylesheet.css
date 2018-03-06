@@ -8,14 +8,15 @@ header img {
     object-fit: fill;
 }
 body {
-    font-family: sans-serif;
+    font-family: "Montserrat", sans-serif;
 }
 
 #app__upload-form {
-    /* border: solid rgb(230, 230, 230) 1px; */
-    background: rgb(230, 230, 230);
+    border: solid rgb(230, 230, 230) 1px;
+    /* background: rgb(230, 230, 230); */
+    box-shadow: 0 2px 4px 0 hsla(0, 0%, 0%, 0.2);
     border-radius: 5px;
-    height: 70px;
+    min-height: 70px;
     margin-right: 300px;
     margin-left: 300px;
     display: flex;
