@@ -6,7 +6,10 @@
             return {
                 image: {},
                 comments: [],
-                form: {}
+                form: {
+                    comment: "",
+                    username: ""
+                }
             };
         },
         mounted: function() {
@@ -14,16 +17,25 @@
             axios.get(`/popup/` + this.id).then(function(resp) {
                 console.log(resp);
                 app.image = resp.data.image;
+                app.comments = resp.data.comments;
             });
         },
         methods: {
             notifyParentClosePopup: function() {
-                console.log("this closepopup emits");
-                this.$emit("close");
+                this.$emit("closepopup");
             },
-            submitComment: function() {}
-            // notifyParentSubmitComment: function() {
-            //     this.$emit("close");
+            submitComment: function() {
+                var app = this;
+                axios
+                    .post("/comment", {
+                        comment: this.form.comment,
+                        username: this.form.username,
+                        image_id: this.id
+                    })
+                    .then(function(results) {
+                        app.comments.unshift(results.data.comments);
+                    });
+            }
         },
         template: "#popup-template"
     });
@@ -41,12 +53,10 @@
             }
         },
         mounted: function() {
-            //mounted is where we should do our initial api calls
             console.log("running mounted");
             var app = this;
             axios.get("/images").then(function(resp) {
                 app.images = resp.data.images;
-                //then create a v-for, loop through images and display.
             });
         },
         methods: {
@@ -60,7 +70,7 @@
                 e.preventDefault();
                 this.form.file = e.target.files[0];
             },
-            handleSubmit: function(e) {
+            handleSubmit: function() {
                 const formData = new FormData();
 
                 formData.append("file", this.form.file);
@@ -75,8 +85,7 @@
                     app.images.unshift(results.data.images);
                 });
             },
-            closePopup: function(e) {
-                console.log("this closepopup is active");
+            closePopup: function() {
                 this.selectedImage = null;
             }
         }

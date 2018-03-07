@@ -14,17 +14,19 @@ body {
 }
 
 #app {
-    /* position: relative; */
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     justify-items: center;
-    /* border: solid; */
     padding-top: 100px;
+}
+
+.image-signature {
+    font-size: 12px;
+    font-style: italic;
 }
 
 #app h3 {
     grid-column: 1 / span 3;
-    /* margin-left: 43%; */
 }
 
 .border {
@@ -37,7 +39,6 @@ body {
 
 #app__upload-form {
     border: solid rgb(230, 230, 230) 1px;
-    /* background: rgb(230, 230, 230); */
     box-shadow: 0 2px 4px 0 hsla(0, 0%, 0%, 0.2);
     border-radius: 5px;
     min-height: 70px;
@@ -53,24 +54,19 @@ body {
     border-radius: 5px;
     border: solid rgb(230, 230, 230) 1px;
     padding: 5px;
-    /* background-color: rgb(230, 230, 230); */
 }
 
 #app__image-board {
     grid-column: 1 / span 3;
-    /* border: solid; */
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    /* grid-template-rows: 80px auto 80px; */
     grid-gap: 15px;
 }
 
 .app__image-board--image-box {
-    /* grid-column: 1 / span 1; */
     width: 300px;
     height: 390px;
     padding: 5px;
-    /* border: solid; */
 }
 
 .app__image-board--image-box img {
@@ -104,12 +100,10 @@ body {
 }
 
 #popup-template__inner-box {
-    /* position: fixed; */
     background: white;
     z-index: 10;
     height: 430px;
     width: 950px;
-    /* border: solid rgb(230, 230, 230) 1px; */
     border-radius: 5px;
     display: flex;
     justify-content: space-around;
@@ -126,18 +120,30 @@ body {
 #inner-box__content {
     height: 400px;
     width: 500px;
-    border: solid;
 }
 
 #inner-box__content--img-info {
-    border: solid;
     vertical-align: top;
+    /* border: solid; */
+}
+
+#inner-box__content--comment-box {
+    border-top: solid rgb(230, 230, 230) 2px;
+    border-bottom: solid rgb(230, 230, 230) 2px;
+    height: 200px;
+    overflow: auto;
 }
 
 #inner-box__content--comments {
-    border: solid;
 }
 
 #inner-box__content--comment-form {
-    border: solid;
+    margin-top: 10px;
+}
+
+#inner-box__content--comment-form input {
+    font-family: "Montserrat", sans-serif;
+    border-radius: 5px;
+    border: solid rgb(230, 230, 230) 1px;
+    padding: 5px;
 }

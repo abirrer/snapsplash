@@ -13,7 +13,7 @@
     </header>
 
     <div id="app">
-        <popup v-if="selectedImage" v-bind:id="selectedImage" v-on:close="closePopup"></popup>
+        <popup v-if="selectedImage" v-bind:id="selectedImage" v-on:closepopup="closePopup"></popup>
         <h3>Upload Your Photo</h3>
 
         <div id="app__upload-form">
@@ -32,7 +32,7 @@
             <div class="app__image-board--image-box" v-for="image in images">
                 <img v-on:mouseover="emphasize" v-on:mouseout="deemphasize" v-on:click="selectedImage=image.id" v-bind:src="image.image">
                 <h4>{{image.title}}</h4>
-                <p>Uploaded by {{image.username}}</p>
+                <p class="image-signature">Uploaded by {{image.username}}</p>
             </div>
         </div>
 
@@ -51,13 +51,14 @@
                     <div id="inner-box__content--img-info">
                         <h2>{{image.title}}</h2>
                         <p>{{image.description}}</p>
-                        <p>Uploaded by {{image.username}} on {{image.created_at}}</p>
+                        <p class="image-signature">Uploaded by {{image.username}} on {{image.created_at}}</p>
                     </div>
 
-                    <div id="inner-box__content--comments" v-for="comment in comments">
-                        <p>All comments:</p>
-                        <p>{{comment.comment}}</p>
-                        <p>Posted by {{comment.username}} on {{comment.created_at}}</p>
+                    <div id="inner-box__content--comment-box">
+                        <div id="inner-box__content--comments" v-for="comment in comments">
+                            <p>{{comment.comment}}</p>
+                            <p class="image-signature">Posted by {{comment.username}} on {{comment.created_at}}</p>
+                        </div>
                     </div>
 
                     <div id="inner-box__content--comment-form">

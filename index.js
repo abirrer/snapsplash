@@ -44,6 +44,8 @@ app.use(
     })
 );
 
+app.use(bodyParser.json());
+
 //Routes-----------------------------------------------------------------Routes
 
 app.get("/images", function(req, res) {
@@ -58,7 +60,6 @@ app.get("/images", function(req, res) {
 
 app.post("/upload", uploader.single("file"), s3.upload, function(req, res) {
     console.log("inside POST /upload");
-    // If nothing went wrong the file is already in the uploads directory
     if (req.file) {
         addImage(
             req.file.filename,
@@ -70,10 +71,6 @@ app.post("/upload", uploader.single("file"), s3.upload, function(req, res) {
             res.json({ images: results.rows[0] });
             console.log("upload was successful");
         });
-        // console.log("upload was successful")
-        // res.json({
-        //     success: true
-        // });
     } else {
         console.log("upload did not work");
         res.json({
@@ -82,12 +79,30 @@ app.post("/upload", uploader.single("file"), s3.upload, function(req, res) {
     }
 });
 
+app.post("/comment", function(req, res) {
+    console.log("inside POST comment route");
+    console.log(req.body);
+
+    addComment(req.body.comment, req.body.username, req.body.image_id).then(
+        results => {
+            res.json({ comments: results.rows[0] });
+        }
+    );
+});
+
 app.get("/popup/:id", function(req, res) {
     var id = req.params.id;
-    getImageById(id).then(results => {
-        results.rows[0].image = config.s3Url + results.rows[0].image;
-        res.json({ image: results.rows[0] });
-    });
+
+    Promise.all([getImageById(id), getCommentsById(id)]).then(
+        ([imageResults, commentResults]) => {
+            imageResults.rows[0].image =
+                config.s3Url + imageResults.rows[0].image;
+            res.json({
+                image: imageResults.rows[0],
+                comments: commentResults.rows
+            });
+        }
+    );
 });
 
 app.listen(8080, () => {
