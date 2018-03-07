@@ -48,3 +48,63 @@ If you move on, then stop at the upload button next. We will talk about that tom
 //Part 2:
 
 After you do an upload, you might want to delete the file from uploads
+
+//Part 3: Notes
+
+for adding comment, need a post route,
+need a query to get all the comments for an image by image id.
+You may want a route that gets all the data about the image and one to get the comments.
+When it has both, then bundles them all and sends them back
+show all data for the image and all the comments.
+
+create a comments table, which needs columns: comment, username, image id, timestamp.
+
+this will be a component, what should happen is that in your html...
+
+make single image appear and pass to it the data to show the right stuff.
+make the div invisible at first.
+better to give single-image component the image id
+Pass it the id of the image, the user clicked on.  Nothing else.
+component should have mounted function that getsID prop and gets the data for that one image.
+Then once received it can show all the data.
+
+In main vue instance,
+
+SelectedImage is set to the id of the image the user clicked.
+in single image, component, have it only show if there if the image is selected,
+and if so then pass it the id of the selected image.
+
+people made a component just for the comment and looped through.
+
+template for the component contains everything on the screen.
+need to be possible to close the modal with an x or click outside of the modal and it closes.
+Either way, the component is not able to close itself.
+the component cannot change the parent's selected image property.  The parent would have to do that.
+THe parent would have to listen for an event, the child needs to emit an event/message to the parent.
+and tell the parent its time to close the modal.
+set the selectedImage to null and the modal will disappear.
+
+comments will be very similar to how images work
+form on page
+make a post request to the server
+simpler because you don't have to do form data stuff.
+
+axios.post("/comment", {
+    username:
+})
+
+don't need form data stuff.
+can copy the whole flow for images for the comments
+
+use css to make single image pop up.
+can also do a css transition.
+vue has some built in transition stuff
+v-transition enter/leave & list transitions
+
+//call vue component and make single image component. associate a single template.
+make a template.
+don't have a v-if so that it always shows.
+then make css to make it the way you want.
+Then add the v-if to hide it.
+
+<!-- <single-image v-if="selectedImage" v-bind:id="selectedImage" v:on:close="closeModal"></single-image> -->
