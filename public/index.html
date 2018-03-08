@@ -30,7 +30,7 @@
 
         <div id="app__image-board">
             <div class="app__image-board--image-box" v-for="image in images">
-                <img v-on:mouseover="emphasize" v-on:mouseout="deemphasize" v-on:click="selectedImage=image.id" v-bind:src="image.image">
+                <a v-bind:href="'#' + image.id"><img v-on:mouseover="emphasize" v-on:mouseout="deemphasize" v-bind:src="image.image"></a>
                 <h4>{{image.title}}</h4>
                 <p class="image-signature">Uploaded by {{image.username}}</p>
             </div>

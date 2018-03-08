@@ -13,6 +13,10 @@
             };
         },
         mounted: function() {
+            if (isNaN(this.id)) {
+                this.$emit("closepopup");
+                return;
+            }
             var app = this;
             axios.get(`/popup/` + this.id).then(function(resp) {
                 console.log(resp);
@@ -44,7 +48,7 @@
         el: "#app", //where our app loads
         data: {
             images: [],
-            selectedImage: null,
+            selectedImage: location.hash.slice(1) || null,
             form: {
                 title: "",
                 description: "",
@@ -55,9 +59,28 @@
         mounted: function() {
             console.log("running mounted");
             var app = this;
+
+            window.addEventListener("hashchange", function() {
+                app.selectedImage = location.hash.slice(1);
+            });
+
             axios.get("/images").then(function(resp) {
                 app.images = resp.data.images;
             });
+        },
+        watch: {
+            selectedImage: function() {
+                if (isNaN(this.id)) {
+                    this.$emit("closepopup");
+                    return;
+                }
+                var app = this;
+                axios.get(`/popup/` + this.id).then(function(resp) {
+                    console.log(resp);
+                    app.image = resp.data.image;
+                    app.comments = resp.data.comments;
+                });
+            }
         },
         methods: {
             emphasize: function(e) {
@@ -86,7 +109,7 @@
                 });
             },
             closePopup: function() {
-                this.selectedImage = null;
+                location.hash = "";
             }
         }
     });

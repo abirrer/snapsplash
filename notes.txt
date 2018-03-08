@@ -136,3 +136,62 @@ time to start listening is when the first results get put in the page.
 
 
 //Part4 Notes on March 8
+
+There's no click on onclick handler anymore
+just a new website, with a url that includes a #id
+
+type in a url with hash and see an image popup.  This is easy to do and should be first prio.
+
+set selectedImage: location.hash.slice(1) || null
+
+then addEventListener("hashchange", function() {
+    console.log("hash change!", location.hash);
+})
+
+in mounted: function() {
+    var app = this
+    window.addEventListener("hashchange", function() {
+        app.selectedImage = location.hash.slice(1);
+    })
+}
+
+After this, remove the click handler on the image.  instead make the image in a link, and set the
+hash
+
+<div v-for="image in images">
+    <a v-bind:href="'#' + image.id"><img v-bind:src="image.image"></a>
+</div>
+
+when you click out of the box, then set
+also set location.hash = "";
+
+next is the biggest complication:
+When you change the selected image to a new id, your component will
+automatically get the new value, but it won't automaticaly do anything with the new value
+Mounted will not run and not make an ajax request.
+
+In the component, you need to have it detect that it got a new prop.
+vue has built in functionality for this:
+
+watchers are functions to run anytime one your data properties changes. their like event handlers for when a prop changes.
+
+create a property on your component or vue.instance.
+
+it's just named watch.
+so anything listed in data,
+then vue automatically figures out if it should render.
+so watch comes in
+watch for selected image change, then make the same axios request when it mounts.
+Get all the data and replace it.
+
+If the axios request comes back with a 500, close the modal and set the hash to nothing.
+
+If more time, can also work on imageboardextra list.
+
+
+Can use scrollTo(x, y);
+
+var x = pagexOffset;
+var y = pageOffset;
+location.hash = '';
+scrollTo(x,y)

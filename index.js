@@ -92,17 +92,22 @@ app.post("/comment", function(req, res) {
 
 app.get("/popup/:id", function(req, res) {
     var id = req.params.id;
-
-    Promise.all([getImageById(id), getCommentsById(id)]).then(
-        ([imageResults, commentResults]) => {
-            imageResults.rows[0].image =
-                config.s3Url + imageResults.rows[0].image;
-            res.json({
-                image: imageResults.rows[0],
-                comments: commentResults.rows
-            });
-        }
-    );
+    // console.log(id);
+    if (isNaN(id)) {
+        res.sendStatus(500);
+        return;
+    } else {
+        Promise.all([getImageById(id), getCommentsById(id)]).then(
+            ([imageResults, commentResults]) => {
+                imageResults.rows[0].image =
+                    config.s3Url + imageResults.rows[0].image;
+                res.json({
+                    image: imageResults.rows[0],
+                    comments: commentResults.rows
+                });
+            }
+        );
+    }
 });
 
 app.listen(8080, () => {
