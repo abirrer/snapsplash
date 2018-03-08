@@ -108,3 +108,31 @@ then make css to make it the way you want.
 Then add the v-if to hide it.
 
 <!-- <single-image v-if="selectedImage" v-bind:id="selectedImage" v:on:close="closeModal"></single-image> -->
+
+
+//Part 1 Notes on 8 March
+
+add limit to getimage and add a get more button or infinite scroll.
+Make an ajax request to tell it where to start to get the next 12.
+
+do with WHERE clause.
+
+SELECT * FROM images WHERE id < $1 ORDER BY id DESC
+Grab the id of the last image in the list.
+get the next 12 images that are less than the id of the last one.
+can create a getinitialimages and then a getmoreimages.
+
+When you reach the end, there might be a problem.
+When you show the image with the lowest id, if you get no results, then hide it.
+as long as id is > 1 then show the button.
+
+do infinite scroll because it is a better user experience than the more button.
+
+if document.body.scrollTop and window.innerHeight is equal to equal.body.scrollHeight.
+document.body.scrollTop is the current top position
+woudl be in a script.js
+
+time to start listening is when the first results get put in the page.
+
+
+//Part4 Notes on March 8

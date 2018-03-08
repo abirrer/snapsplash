@@ -1,7 +1,11 @@
+/*********** Mainpage CSS ***********/
+
 header {
     width: 100%;
-    position: fixed;
+    /* position: fixed; */
     z-index: 8;
+    position: sticky;
+    top: -35px;
 }
 
 header img {
@@ -17,7 +21,7 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     justify-items: center;
-    padding-top: 100px;
+    padding-top: 10px;
 }
 
 .image-signature {
@@ -27,6 +31,10 @@ body {
 
 #app h3 {
     grid-column: 1 / span 3;
+}
+
+input[type="submit"]:hover {
+    box-shadow: 0 0px 6px 0 #d48e82;
 }
 
 .border {
@@ -120,25 +128,38 @@ body {
 #inner-box__content {
     height: 400px;
     width: 500px;
+    /* border: solid; */
+    position: relative;
 }
 
 #inner-box__content--img-info {
-    vertical-align: top;
+    margin-top: -10px;
+    /* vertical-align: top; */
     /* border: solid; */
+    margin-bottom: 22px;
+    line-height: 80%;
 }
 
 #inner-box__content--comment-box {
     border-top: solid rgb(230, 230, 230) 2px;
     border-bottom: solid rgb(230, 230, 230) 2px;
-    height: 200px;
+    height: 245px;
     overflow: auto;
 }
 
 #inner-box__content--comments {
+    line-height: 40%;
+    padding-bottom: 10px;
+}
+
+#inner-box__content--comments .image-signature {
+    color: rgb(139, 139, 139);
 }
 
 #inner-box__content--comment-form {
-    margin-top: 10px;
+    /* border: solid; */
+    position: absolute;
+    bottom: 0px;
 }
 
 #inner-box__content--comment-form input {
@@ -146,4 +167,8 @@ body {
     border-radius: 5px;
     border: solid rgb(230, 230, 230) 1px;
     padding: 5px;
+}
+
+input[name="comment"] {
+    width: 285px;
 }
