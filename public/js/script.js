@@ -24,6 +24,20 @@
                 app.comments = resp.data.comments;
             });
         },
+        watch: {
+            id: function() {
+                if (isNaN(this.id)) {
+                    this.$emit("closepopup");
+                    return;
+                }
+                var app = this;
+                axios.get(`/popup/` + this.id).then(function(resp) {
+                    console.log(resp);
+                    app.image = resp.data.image;
+                    app.comments = resp.data.comments;
+                });
+            }
+        },
         methods: {
             notifyParentClosePopup: function() {
                 this.$emit("closepopup");
@@ -61,26 +75,13 @@
             var app = this;
 
             window.addEventListener("hashchange", function() {
+                console.log("there was a hash change");
                 app.selectedImage = location.hash.slice(1);
             });
 
             axios.get("/images").then(function(resp) {
                 app.images = resp.data.images;
             });
-        },
-        watch: {
-            selectedImage: function() {
-                if (isNaN(this.id)) {
-                    this.$emit("closepopup");
-                    return;
-                }
-                var app = this;
-                axios.get(`/popup/` + this.id).then(function(resp) {
-                    console.log(resp);
-                    app.image = resp.data.image;
-                    app.comments = resp.data.comments;
-                });
-            }
         },
         methods: {
             emphasize: function(e) {
