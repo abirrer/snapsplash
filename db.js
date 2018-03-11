@@ -10,7 +10,14 @@ var db = spicedPg(
 );
 
 function getImages() {
-    return db.query(`SELECT * FROM images ORDER BY created_at DESC LIMIT 12`);
+    return db.query(`SELECT * FROM images ORDER BY created_at DESC LIMIT 9`);
+}
+
+function getMoreImages(id) {
+    return db.query(
+        `SELECT * FROM images WHERE id < $1 ORDER BY created_at DESC LIMIT 9`,
+        [id]
+    );
 }
 
 function addImage(file, username, title, description) {
@@ -43,3 +50,4 @@ exports.addImage = addImage;
 exports.getImageById = getImageById;
 exports.addComment = addComment;
 exports.getCommentsById = getCommentsById;
+exports.getMoreImages = getMoreImages;

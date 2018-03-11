@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const config = require("./config");
 const {
     getImages,
+    getMoreImages,
     addImage,
     getImageById,
     addComment,
@@ -55,6 +56,21 @@ app.get("/images", function(req, res) {
             image.image = config.s3Url + image.image;
         });
         res.json({ images: results.rows });
+    });
+});
+
+app.get("/moreimages/:lastImageID", function(req, res) {
+    var lastImageID = req.params.lastImageID;
+    getMoreImages(lastImageID).then(results => {
+        results.rows.forEach(function(image) {
+            image.image = config.s3Url + image.image;
+        });
+
+        if (!results.length) {
+            res.json(null);
+        } else {
+            res.json({ images: results.rows });
+        }
     });
 });
 

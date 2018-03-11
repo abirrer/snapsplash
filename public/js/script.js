@@ -111,6 +111,34 @@
             },
             closePopup: function() {
                 location.hash = "";
+            },
+            automaticScroll: function() {
+                var app = this;
+                automaticScroll();
+
+                function automaticScroll() {
+                    if (
+                        window.pageYOffset + window.innerHeight >=
+                        document.body.scrollHeight
+                    ) {
+                        var lastImageID = app.images[app.images.length - 1].id;
+
+                        axios.get("/moreimages/" + lastImageID).then(resp => {
+                            if (resp.data == null) {
+                                return;
+                            } else {
+                                app.images.push.apply(
+                                    app.images,
+                                    resp.data.images
+                                );
+
+                                setTimeout(automaticScroll, 1000);
+                            }
+                        });
+                    } else {
+                        setTimeout(automaticScroll, 1000);
+                    }
+                }
             }
         }
     });
