@@ -66,7 +66,7 @@ app.get("/moreimages/:lastImageID", function(req, res) {
             image.image = config.s3Url + image.image;
         });
 
-        if (!results.length) {
+        if (!results.rows.length) {
             res.json(null);
         } else {
             res.json({ images: results.rows });

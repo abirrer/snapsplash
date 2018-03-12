@@ -117,6 +117,7 @@
                 automaticScroll();
 
                 function automaticScroll() {
+                    console.log("automatic scroll");
                     if (
                         window.pageYOffset + window.innerHeight >=
                         document.body.scrollHeight
@@ -131,15 +132,17 @@
                                     app.images,
                                     resp.data.images
                                 );
-
-                                setTimeout(automaticScroll, 1000);
                             }
                         });
                     } else {
-                        setTimeout(automaticScroll, 1000);
+                        clearTimeout(app.timer);
+                        app.timer = setTimeout(automaticScroll, 1000);
                     }
                 }
             }
+        },
+        updated: function() {
+            this.automaticScroll();
         }
     });
 })();
