@@ -195,3 +195,7 @@ var x = pagexOffset;
 var y = pageOffset;
 location.hash = '';
 scrollTo(x,y)
+
+//Notes:
+
+Put each image in a div and put the title and username there, and then have it display: non and then on hover display: block.
