@@ -6,7 +6,7 @@
 
 ### Website
 
-<p>https://snapsplashimageboard.herokuapp.com</p>
+<p>https://snapsplash-imageboard.herokuapp.com/</p>
 
 ### Technologies Used
 
